@@ -5,13 +5,18 @@ import { RouteProp } from "@react-navigation/native";
 import { RestaurantProps } from "../../types/Types";
 
 import { Stars } from "../stars/Stars";
-import { withStyleAnimation } from "react-native-reanimated/src/reanimated2/animation";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface RestaurantInfoProps {
   route: RouteProp<{ param: { restaurant: RestaurantProps } }>;
+  navigation: NativeStackNavigationProp<any, any>;
 }
-export const RestaurantInfo = ({ route }: RestaurantInfoProps) => {
+export const RestaurantInfo = ({ route, navigation }: RestaurantInfoProps) => {
   const restaurant = route.params.restaurant;
+
+  const addReview = () => {
+    navigation.navigate("AddReview");
+  };
 
   return (
     <View style={styles.root}>
@@ -29,7 +34,7 @@ export const RestaurantInfo = ({ route }: RestaurantInfoProps) => {
           <Stars rating={restaurant.rating} />
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={addReview}>
           <Text style={{ color: "white", fontWeight: "600" }}>Add review</Text>
         </TouchableOpacity>
       </View>

@@ -52,6 +52,7 @@ export const RestaurantList = ({ navigation }: RestaurantListProps) => {
           <RestaurantRow restaurant={item} index={index} navigation={navigation} />
         )}
         keyExtractor={(item) => item.name}
+        ListFooterComponent={<View style={{ height: 170 }} />}
       />
     </View>
   );

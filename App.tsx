@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { About } from "./src/components/about";
 import { RestaurantList } from "./src/components/restaurant-list";
 import { RestaurantInfo } from "./src/components/restaurant-info";
+import { AddReview } from "./src/components/add-review";
 
 const List = () => {
   const Stack = createNativeStackNavigator();
@@ -55,6 +56,11 @@ const App = () => {
         <Tab.Screen
           name="Tabs"
           component={Tabs}
+          options={{ presentation: "modal", headerShown: false }}
+        />
+        <Tab.Screen
+          name="AddReview"
+          component={AddReview}
           options={{ presentation: "modal", headerShown: false }}
         />
       </Tab.Navigator>

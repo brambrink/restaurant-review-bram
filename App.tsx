@@ -1,51 +1,65 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { NavigationContainer } from "@react-navigation/native";
 
-const App = () => {
-  const restaurants = [
-    { name: "React Cafe", address: "123 Anywhere St" },
-    { name: "Fancy Restaurant", address: "12 Nowhere Blv" },
-    { name: "Hipster Coffee", address: "12 There Street" },
-  ];
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import { About } from "./src/components/about";
+import { RestaurantList } from "./src/components/restaurant-list";
+import { RestaurantInfo } from "./src/components/restaurant-info";
+
+const List = () => {
+  const Stack = createNativeStackNavigator();
 
   return (
-    <View>
-      <Text style={styles.header}>Restaurant Review</Text>
-
-      {restaurants.map((restaurant, index) => (
-        <View key={restaurant.name} style={styles.row}>
-          <View style={styles.edges}>
-            <Text>{index + 1}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "column",
-              flex: 8,
-            }}
-          >
-            <Text>{restaurant.name}</Text>
-            <Text style={{ color: "grey" }}>{restaurant.address}</Text>
-          </View>
-          <View style={styles.edges}>
-            <Text>Info</Text>
-          </View>
-        </View>
-      ))}
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={RestaurantList} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Info"
+        component={RestaurantInfo}
+        options={{ headerTitle: "Restaurant Info" }}
+      />
+    </Stack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  header: {
-    color: "red",
-    flex: 1,
-    fontSize: 30,
-    fontWeight: "900",
-    padding: 40,
-    textAlign: "center",
-  },
-  row: { flexDirection: "row" },
-  edges: { alignItems: "center", flex: 1, justifyContent: "center" },
-});
+const Tabs = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={List}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="list" color={color} size={22} />,
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={About}
+        options={{
+          tabBarIcon: ({ color }) => <Icon name="info-circle" color={color} size={22} />,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const App = () => {
+  const Tab = createNativeStackNavigator();
+
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Tabs"
+          component={Tabs}
+          options={{ presentation: "modal", headerShown: false }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;

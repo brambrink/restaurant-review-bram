@@ -1,27 +1,78 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useState } from "react";
-import { Text, TextInput, View, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { ActivityIndicator, Text, TextInput, View, TouchableOpacity } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { RouteProp } from "@react-navigation/native";
+
 import Icon from "react-native-vector-icons/FontAwesome";
+
+import { ReviewProps, RestaurantProps } from "../../types/Types";
+import { styles } from "./AddReview.style";
+
+import { addReview } from "../../services/restaurant-api/add-review";
+import { StoreContext } from "../../providers/";
+import { NotFoundError } from "../../errors/not-found-error";
+import { getReviews } from "../../services/restaurant-api";
 
 interface AddReviewProps {
   navigation: NativeStackNavigationProp<any, any>;
+  route: RouteProp<{ param: { restaurant: RestaurantProps } }>;
 }
 
-export const AddReview = ({ navigation }: AddReviewProps) => {
-  type ReviewProps = {
-    name: string;
-    rating: number;
-    comment: string;
-  };
+export const AddReview = ({ navigation, route }: AddReviewProps) => {
+  const [, setReviews] = useContext(StoreContext).reviews;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [review, setReview] = useState<ReviewProps>({ name: "", rating: 0, comment: "" });
+  const restaurant = route.params.restaurant;
+
+  const [review, setReview] = useState<ReviewProps>({
+    name: "",
+    rating: 0,
+    comment: "",
+    restaurantName: "",
+  });
+
+  const fetchReviews = async () => {
+    const awaitReviews = await getReviews();
+
+    if (awaitReviews instanceof NotFoundError) {
+      console.error("404: Not found!");
+      return;
+    }
+
+    setReviews(awaitReviews);
+  };
 
   const onClose = () => {
     navigation.goBack();
   };
 
+  const onSubmit = async () => {
+    setIsSubmitting(true);
+
+    if (review.name !== null && review.name !== undefined) {
+      AsyncStorage.setItem("reviewerName", review.name);
+    }
+
+    await addReview({ ...review, restaurantName: restaurant.name });
+    await fetchReviews();
+    setIsSubmitting(false);
+
+    navigation.goBack();
+  };
+
+  useEffect(() => {
+    AsyncStorage.getItem("reviewerName").then((reviewerName) =>
+      setReview({
+        ...review,
+        name: reviewerName || "",
+      }),
+    );
+  }, []);
+
   return (
-    <View style={styles.root}>
+    <KeyboardAwareScrollView style={styles.root}>
       <TouchableOpacity onPress={onClose}>
         <Icon name="close" size={30} />
       </TouchableOpacity>
@@ -67,65 +118,13 @@ export const AddReview = ({ navigation }: AddReviewProps) => {
         }}
       />
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Submit review</Text>
+      <TouchableOpacity style={styles.button} disabled={isSubmitting}>
+        <Text style={styles.buttonText} onPress={onSubmit}>
+          Submit review
+        </Text>
       </TouchableOpacity>
-    </View>
+
+      {isSubmitting && <ActivityIndicator style={styles.indicator} size="large" />}
+    </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-  },
-  addReview: {
-    fontSize: 28,
-    textAlign: "center",
-    paddingTop: 20,
-    fontWeight: "600",
-  },
-  name: {
-    height: 40,
-    width: "auto",
-    backgroundColor: "#FAEDCA",
-    borderRadius: 4,
-    padding: 10,
-    marginTop: 20,
-  },
-  rating: {
-    fontSize: 18,
-    fontWeight: "500",
-  },
-  stars: {
-    flexDirection: "row",
-    marginTop: 10,
-    alignItems: "baseline",
-    justifyContent: "space-between",
-  },
-  starButton: {
-    padding: 5,
-  },
-  comment: {
-    backgroundColor: "#FAEDCA",
-    borderRadius: 4,
-    height: 200,
-    maxHeight: 200,
-    marginTop: 20,
-    padding: 10,
-    width: "auto",
-  },
-  button: {
-    backgroundColor: "#7EBC89",
-    borderRadius: 3,
-    marginTop: 40,
-    padding: 10,
-    width: "auto",
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "white",
-    fontWeight: "700",
-  },
-});

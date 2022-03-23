@@ -1,4 +1,83 @@
 {
+  "reviews": [
+    {
+      "name": "Cody",
+      "rating": 5,
+      "comment": "A very nice location. The food was exceptional.",
+      "restaurantName": "React Cafe",
+      "id": 1
+    },
+    {
+      "name": "Amy",
+      "rating": 3,
+      "comment": "At first I was amazed by this place. The staff was nice and easy-going. \n\nSadly the desert was a bit too cold for my taste...",
+      "restaurantName": "React Cafe",
+      "id": 2
+    },
+    {
+      "name": "Alberto",
+      "rating": 4.5,
+      "comment": "I liked everything about React Cafe. ",
+      "restaurantName": "React Cafe",
+      "id": 3
+    },
+    {
+      "name": "Elisa",
+      "rating": 5,
+      "comment": "-",
+      "restaurantName": "React Cafe",
+      "id": 4
+    },
+    {
+      "name": "Henk",
+      "rating": 4,
+      "comment": "This place has great reviews for a good reason!",
+      "restaurantName": "React Cafe",
+      "id": 5
+    },
+    {
+      "name": "Bart",
+      "rating": 3,
+      "comment": "Mediocre restaurant",
+      "restaurantName": "Fancy Restaurant",
+      "id": 6
+    },
+    {
+      "name": "Lianne",
+      "rating": 5,
+      "comment": "This is a very good restaurant and the waiter was great.",
+      "restaurantName": "Pizza Express",
+      "id": 7
+    },
+    {
+      "name": "Olaf",
+      "rating": 3,
+      "comment": "Although I love taco’s, I feel like this place has a bit too much of them.\n\nThat does not mean that I cannot recommend this place though. It just means that are too much taco’s.",
+      "restaurantName": "Taco Place",
+      "id": 8
+    },
+    {
+      "name": "Berta",
+      "rating": 4,
+      "comment": "The pasta was okay.",
+      "restaurantName": "Pasta Central",
+      "id": 9
+    },
+    {
+      "name": "Bram",
+      "rating": 1,
+      "comment": "The burger was cold…",
+      "restaurantName": "Burger Builder",
+      "id": 10
+    },
+    {
+      "name": "Bert",
+      "rating": 4,
+      "comment": "This place is amazing!",
+      "restaurantName": "Maroon Deli",
+      "id": 11
+    }
+  ],
   "restaurants": [
     {
       "id": 1,

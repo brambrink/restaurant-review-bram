@@ -5,3 +5,11 @@ export type RestaurantProps = {
   image: string;
   rating: number;
 };
+
+export type ReviewProps = {
+  name: string;
+  rating: number;
+  comment: string;
+  restaurantName: string;
+  id?: number;
+};

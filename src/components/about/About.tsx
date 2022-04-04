@@ -1,6 +1,7 @@
 import React from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
+
+import { styles } from "./About.style";
 
 export const About = () => {
   return (
@@ -23,24 +24,3 @@ export const About = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    alignItems: "center",
-    flex: 1,
-    padding: 20,
-  },
-  header: {
-    color: "#403429",
-    fontFamily: "Rockwell",
-    fontSize: 30,
-    fontWeight: "900",
-    paddingTop: 40,
-    textAlign: "center",
-  },
-  logo: {
-    fontSize: 100,
-    padding: 10,
-  },
-  text: { paddingBottom: 10 },
-});

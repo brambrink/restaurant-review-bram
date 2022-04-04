@@ -76,6 +76,20 @@
       "comment": "This place is amazing!",
       "restaurantName": "Maroon Deli",
       "id": 11
+    },
+    {
+      "name": "Hoi",
+      "rating": 2,
+      "comment": "Test",
+      "restaurantName": "React Cafe",
+      "id": 12
+    },
+    {
+      "name": "Hector",
+      "rating": 3,
+      "comment": "Not Spanish enough ",
+      "restaurantName": "React Cafe",
+      "id": 13
     }
   ],
   "restaurants": [

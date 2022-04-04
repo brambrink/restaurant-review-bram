@@ -15,7 +15,7 @@ brew install node
 Next, you can run the app on iOS using:
 
 ```zsh
-react-native run-ios
+npx react-native run-ios
 ```
 
 In a seperate terminal window, run the JSON server:

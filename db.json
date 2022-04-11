@@ -90,6 +90,13 @@
       "comment": "Not Spanish enough ",
       "restaurantName": "React Cafe",
       "id": 13
+    },
+    {
+      "name": "",
+      "rating": 2,
+      "comment": "",
+      "restaurantName": "React Cafe",
+      "id": 14
     }
   ],
   "restaurants": [
